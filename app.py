@@ -1,3 +1,6 @@
+import operator
+import random
+
 from flask import Flask, request, abort
 
 from linebot import (
@@ -40,6 +43,7 @@ def callback():
         abort(400)
     return 'OK'
 
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -48,8 +52,40 @@ def handle_message(event):
     	message = TextSendMessage("Data COVID-19 " + negara + "\nPositif: " + positif + "\nSembuh: " + sembuh + "\nMeninggal: " + meninggal)
     	line_bot_api.reply_message(event.reply_token, message)
 
+    if msg_from_user == 'Kuis':  
+        message = TextSendMessage(askquestion())
+    	line_bot_api.reply_message(event.reply_token, message)  
+
+
+def askquestion():
+            score = 0
+            opslist = {operator.add: "+", operator.sub: "-", operator.mul: "x"} #All operators that can be chosen
+            num1,num2 = random.randint(1,10), random.randint(1,10)        #Two Random Numbers          
+            ops = random.choice(list(opslist.keys()))        # random operators from oplist keys                        
+            ActualAnswer = (ops(num1,num2))                #Answer for my quiz                                
+            score = 0
+            print(num1,opslist[ops],num2)           # Question for my quiz        
+            
+            
+            userAns = (int(input("Enter answer:")))
+            if userAns == ActualAnswer:         #If the user's answer matches the Actual Answer     
+                print("Correct")
+                return 1
+            else:
+                print("Incorrect")
+                score = score - 0
+            return 0
+
+totalScore = 0
+for i in range (10):
+    totalScore += askquestion()  
+
+print ("The quiz has finished")
+print ("Today you achieved a score of" ,totalScore,"out of 10")
+       
+       
+
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-
