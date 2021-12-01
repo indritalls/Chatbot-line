@@ -57,28 +57,17 @@ def handle_message(event):
     	message = TextSendMessage("Data COVID-19 " + negara + "\nPositif: " + positif + "\nSembuh: " + sembuh + "\nMeninggal: " + meninggal)
     	line_bot_api.reply_message(event.reply_token, message)
         
-    count = 0
-    msg_from_user = event.message.text
-    if msg_from_user == 'Data-covid':
-    	message = TextSendMessage("Data COVID-19 " + negara + "\nPositif: " + positif + "\nSembuh: " + sembuh + "\nMeninggal: " + meninggal)
-    	line_bot_api.reply_message(event.reply_token, message)
-    
-    i = randint(0, 7)
-    answer = input("Pertanyaan 1 : " + Soal[i])
-    if answer.lower() == Jawab[i]: 
-        count = count + 1
-        message = TextSendMessage("benar"+"\nKamu benar"+count)
-    	line_bot_api.reply_message(event.reply_token, message)  
-    else:
-        message = TextSendMessage("salah")
+    if msg_from_user == 'Mulai':
+        count = 0
+        i = randint(0, 7)
+        mmessage = TextSendMessage(input("Pertanyaan 1 : " + Soal[i]))
     	line_bot_api.reply_message(event.reply_token, message)
 
-    i = randint(0, 7) 
-    answer = input("\nPertanyaan 2 : " + Soal[i])
-    if answer.lower() == Jawab[i]:
-        count = count + 1
-        message = TextSendMessage("benar"+"\nKamu benar"+count)
-    	line_bot_api.reply_message(event.reply_token, message)
-    else:
-        message = TextSendMessage("salah")
-    	line_bot_api.reply_message(event.reply_token, message)
+        if message == Jawab[i]: 
+            count = count + 1
+            message = TextSendMessage("benar"+"\nKamu benar"+count)
+    	    line_bot_api.reply_message(event.reply_token, message)  
+        
+        else:
+            message = TextSendMessage("salah")
+    	    line_bot_api.reply_message(event.reply_token, message)
