@@ -23,20 +23,8 @@ meninggal = parsed["meninggal"]
 
 count = 0
  
-Soal = ["Social Media buatan Mark zuck...? ",
-     "Social Media yang eksis dengan awake sleep? ",
-     "Microblogging yang gambar burung apa hayo? ",
-     "Social Media yang populer dengan photo?",
-     "Social Media yang logonya hampir sama dengan Path  ",
-     "Social Media buat pekerja itu namanya: ",
-     "Planet Python di Indonesia itu hanya: "]
-Jawab = ["facebook",
-     "path",
-     "twitter",
-     "instagram",
-     "pinterest",
-     "linkedin",
-     "planpin"]
+Soal = ["Social Media buatan Mark zuck...? ","Social Media yang eksis dengan awake sleep? ","Microblogging yang gambar burung apa hayo? ","Social Media yang populer dengan photo?","Social Media yang logonya hampir sama dengan Path  ", "Social Media buat pekerja itu namanya: ", "Planet Python di Indonesia itu hanya: "]
+Jawab = ["facebook","path", "twitter", "instagram", "pinterest", "linkedin", "planpin"]
 ########################################
 app = Flask(__name__)
 
@@ -64,6 +52,11 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    msg_from_user = event.message.text
+    if msg_from_user == 'Data-covid':
+    	message = TextSendMessage("Data COVID-19 " + negara + "\nPositif: " + positif + "\nSembuh: " + sembuh + "\nMeninggal: " + meninggal)
+    	line_bot_api.reply_message(event.reply_token, message)
+        
     count = 0
     msg_from_user = event.message.text
     if msg_from_user == 'Data-covid':
