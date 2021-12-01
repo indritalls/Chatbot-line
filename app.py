@@ -43,36 +43,34 @@ def callback():
         abort(400)
     return 'OK'
 
+score = 0
+opslist = {operator.add: "+", operator.sub: "-", operator.mul: "x"} #All operators that can be chosen
+num1,num2 = random.randint(1,10), random.randint(1,10)        #Two Random Numbers          
+ops = random.choice(list(opslist.keys()))        # random operators from oplist keys                        
+ActualAnswer = (ops(num1,num2))                #Answer for my quiz                                
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg_from_user = event.message.text
     if msg_from_user == 'Kuis':
-            score = 0
-            opslist = {operator.add: "+", operator.sub: "-", operator.mul: "x"} #All operators that can be chosen
-            num1,num2 = random.randint(1,10), random.randint(1,10)        #Two Random Numbers          
-            ops = random.choice(list(opslist.keys()))        # random operators from oplist keys                        
-            ActualAnswer = (ops(num1,num2))                #Answer for my quiz                                
-            score = 0
             message = TextSendMessage(num1,opslist[ops],num2)
     	    line_bot_api.reply_message(event.reply_token, message)
              
             userAns = (int(input("Enter answer:")))
-            if userAns == ActualAnswer:         #If the user's answer matches the Actual Answer     
+            if userAns == ActualAnswer:        
                 message = TextSendMessage("benar")
     	        line_bot_api.reply_message(event.reply_token, message)
                 return 1
             else:
                 message = TextSendMessage("salah")
     	        line_bot_api.reply_message(event.reply_token, message)
-                score = score - 0
+                nilai = score - 0
             return 0
+    
+    totalScore = 0
+    for i in range (10):
+        totalScore += handle_message()
 
-totalScore = 0
-for i in range (10):
-    totalScore += handle_message()
-
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
     message = TextSendMessage("Kuis telah selesai")
     line_bot_api.reply_message(event.reply_token, message)
 
