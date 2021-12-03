@@ -1,6 +1,3 @@
-import sys
-from random import randint
-
 from flask import Flask, request, abort
 
 from linebot import (
@@ -9,23 +6,10 @@ from linebot import (
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import *
-#tambahkan ini#########################
-import requests
-import json
-url = "https://api.kawalcorona.com/indonesia/"
-response = requests.get(url)
-parsed = response.json()[0]
-negara = parsed["name"]
-positif = parsed["positif"]
-sembuh = parsed["sembuh"]
-meninggal = parsed["meninggal"]
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
+)
 
-count = 0
- 
-Soal = ["Social Media buatan Mark zuck...? ","Social Media yang eksis dengan awake sleep? ","Microblogging yang gambar burung apa hayo? ","Social Media yang populer dengan photo?","Social Media yang logonya hampir sama dengan Path  ", "Social Media buat pekerja itu namanya: ", "Planet Python di Indonesia itu hanya: "]
-Jawab = ["facebook","path", "twitter", "instagram", "pinterest", "linkedin", "planpin"]
-########################################
 app = Flask(__name__)
 
 # Channel Access Token
@@ -33,41 +17,23 @@ line_bot_api = LineBotApi('k6Y9+0gsK+ycPoenaZtDwyVeW/hzm8Y8XYmXySGv6yVOkRMhcTgn5
 # Channel Secret
 handler = WebhookHandler('3c71b07a2d7861abf6a78d8845338baf')
 
-# 監聽所有來自 /callback 的 Post Request
-@app.route("/callback", methods=['POST'])
-def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
-    # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
-    # handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
-
-
-# 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg_from_user = event.message.text
     if msg_from_user == 'Data-covid':
-    	message = TextSendMessage("Data COVID-19 " + negara + "\nPositif: " + positif + "\nSembuh: " + sembuh + "\nMeninggal: " + meninggal)
-    	line_bot_api.reply_message(event.reply_token, message)
-        
-    if msg_from_user == 'Mulai':
-        count = 0
-        i = randint(0, 7)
-        mmessage = TextSendMessage(input("Pertanyaan 1 : " + Soal[i]))
+    	message = TextSendMessage('Pilih mana?')
     	line_bot_api.reply_message(event.reply_token, message)
 
-        if message == Jawab[i]: 
-            count = count + 1
-            message = TextSendMessage("benar"+"\nKamu benar"+count)
-    	    line_bot_api.reply_message(event.reply_token, message)  
-        
-        else:
-            message = TextSendMessage("salah")
-    	    line_bot_api.reply_message(event.reply_token, message)
+    if msg_from_user == 'games':
+        message = ImageSendMessage(
+            original_content_url='https://d.line-scdn.net/stf/linecorp/ja/pr/design_1.png',
+            preview_image_url='https://d.line-scdn.net/stf/linecorp/ja/pr/design_1.png'
+        )
+        line_bot_api.reply_message(event.reply_token, message)
+
+
+import os
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+    
