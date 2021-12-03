@@ -31,13 +31,9 @@ def callback():
         abort(400)
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=ImageMessage)
 def handle_message(event):
     msg_from_user = event.message.text
-    if msg_from_user == 'Data-covid':
-    	message = TextSendMessage('Pilih mana?')
-    	line_bot_api.reply_message(event.reply_token, message)
-
     if msg_from_user == 'games':
         message = ImageSendMessage(
             original_content_url='https://d.line-scdn.net/stf/linecorp/ja/pr/design_1.png',
