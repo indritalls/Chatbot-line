@@ -6,9 +6,7 @@ from linebot import (
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
-)
+from linebot.models import *
 
 app = Flask(__name__)
 
@@ -17,6 +15,7 @@ line_bot_api = LineBotApi('k6Y9+0gsK+ycPoenaZtDwyVeW/hzm8Y8XYmXySGv6yVOkRMhcTgn5
 # Channel Secret
 handler = WebhookHandler('3c71b07a2d7861abf6a78d8845338baf')
 
+# 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -31,19 +30,13 @@ def callback():
         abort(400)
     return 'OK'
 
-@handler.add(MessageEvent, message=ImageMessage)
+# 處理訊息
+@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    msg_from_user = event.message.text
-    if msg_from_user == 'games':
-        message = ImageSendMessage(
-            original_content_url='https://d.line-scdn.net/stf/linecorp/ja/pr/design_1.png',
-            preview_image_url='https://d.line-scdn.net/stf/linecorp/ja/pr/design_1.png'
-        )
-        line_bot_api.reply_message(event.reply_token, message)
-
+    message = TextSendMessage(text="hai")
+    line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-    
