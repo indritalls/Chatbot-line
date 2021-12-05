@@ -7,7 +7,17 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
-
+#tambahkan ini#########################
+import requests
+import json
+url = "https://api.kawalcorona.com/indonesia/"
+response = requests.get(url)
+parsed = response.json()[0]
+negara = parsed["name"]
+positif = parsed["positif"]
+sembuh = parsed["sembuh"]
+meninggal = parsed["meninggal"]
+########################################
 app = Flask(__name__)
 
 # Channel Access Token
@@ -33,10 +43,10 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    pesan = event.message.text
-    if pesan == 'data':
-        message = TextSendMessage("ayam")
-        line_bot_api.reply_message(event.reply_token, message)
+    msg_from_user = event.message.text
+    if msg_from_user == 'Data-covid':
+    	message = TextSendMessage("Data COVID-19 " + negara + "\nPositif: " + positif + "\nSembuh: " + sembuh + "\nMeninggal: " + meninggal)
+    	line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
