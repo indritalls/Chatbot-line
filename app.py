@@ -39,8 +39,7 @@ def handle_message(event):
         StickerSendMessage(
             package_id='11537',
             sticker_id='52002735'))
-        
-    if msg_from_user == 'Bisa':
+
         message = TextSendMessage('Ingin lanjut? Jika lanjut, ketik "truth" untuk memilih games truth dan ketik "dare" untuk memilih games dare.')
         line_bot_api.reply_message(event.reply_token, message)
 
