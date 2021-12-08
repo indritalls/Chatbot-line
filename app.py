@@ -37,7 +37,7 @@ def handle_message(event):
         event.reply_token,
         ImageSendMessage(
             original_content_url='https://1.bp.blogspot.com/-eaDZ7sDP9uY/Xhwqlve5SUI/AAAAAAABXBo/EcI2C2vim7w2WV6EYy3ap0QLirX7RPohgCNcBGAsYHQ/s400/pose_syanikamaeru_man.png',
-            preview_image_url='https://1.bp.blogspot.com/-eaDZ7sDP9uY/Xhwqlve5SUI/AAAAAAABXBo/EcI2C2vim7w2WV6EYy3ap0QLirX7RPohgCNcBGAsYHQ/s400/pose_syanikamaeru_man.png'))
+            preview_image_url='https://i.pinimg.com/564x/70/cf/b5/70cfb5748a1986676a9f623b4cc6cc70.jpg'))
 
 import os
 if __name__ == "__main__":
