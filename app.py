@@ -50,8 +50,8 @@ def handle_message(event):
         line_bot_api.reply_message(
         event.reply_token,
         ImageSendMessage(
-            original_content_url='https://i.pinimg.com/236x/88/a8/ee/88a8eec5497b774af25910cd23b3f2ea.jpg',
-            preview_image_url=tth))
+            original_content_url=tth,
+            preview_image_url='https://i.pinimg.com/236x/88/a8/ee/88a8eec5497b774af25910cd23b3f2ea.jpg))
 
 import os
 if __name__ == "__main__":
