@@ -32,19 +32,25 @@ def callback():
     
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    s = {52002734:1, 
+        52002735:2,
+        52002736:3,
+        52002737:4,
+        52002738:5,
+        52002740:6,
+        52002748:7,
+        52002745:8}
+    stiker = random.choice(list(s.keys()))
+    
     msg_from_user = event.message.text
     if msg_from_user == 'Bisa':
         line_bot_api.reply_message(
         event.reply_token,
         StickerSendMessage(
             package_id='11537',
-            sticker_id='52002735'))
+            sticker_id=stiker))
         
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(
-            'Ingin lanjut? Jika lanjut, ketik "truth" untuk memilih games truth dan ketik "dare" untuk memilih games dare.'))
-
+        
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
