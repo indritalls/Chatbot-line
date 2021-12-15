@@ -1,4 +1,3 @@
-import random
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -7,7 +6,9 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, StickerMessage, StickerSendMessage
+    MessageEvent, TextMessage, FlexSendMessage, 
+    TemplateSendMessage, ConfirmTemplate, PostbackTemplateAction, MessageTemplateAction,
+    ButtonsTemplate, URITemplateAction
 )
 
 app = Flask(__name__)
@@ -29,26 +30,28 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-    
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    s = {52002734:1, 
-        52002735:2,
-        52002736:3,
-        52002737:4,
-        52002738:5,
-        52002740:6,
-        52002748:7,
-        52002745:8}
-    stiker = random.choice(list(s.keys()))
-    
     msg_from_user = event.message.text
-    if msg_from_user == 'Bisa':
-        line_bot_api.reply_message(
-        event.reply_token,
-        StickerSendMessage(
-            package_id='11537',
-            sticker_id=stiker))
+    if msg_from_user == 'Tes':
+        message = TemplateSendMessage(
+            alt_text='Buttons template',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://i.pinimg.com/564x/0d/b8/98/0db89880dfa0595585f33ddb50da89f9.jpg',
+                title='Menu',
+                text='Please select',
+                actions=[
+                    URITemplateAction(
+                        label='uri',
+                        uri='https://indritall.wordpress.com/'
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, message)
+
         
         
 import os
