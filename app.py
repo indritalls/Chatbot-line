@@ -9,7 +9,8 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, FlexSendMessage, 
     TemplateSendMessage, ConfirmTemplate, PostbackTemplateAction, MessageTemplateAction,
-    ButtonsTemplate, URITemplateAction, TextSendMessage, CarouselTemplate, CarouselColumn, ImageSendMessage, StickerSendMessage
+    ButtonsTemplate, URITemplateAction, TextSendMessage, CarouselTemplate, CarouselColumn, ImageSendMessage, StickerSendMessage,
+    ImageCarouselTemplate, ImageCarouselColumn
 )
 
 app = Flask(__name__)
@@ -108,24 +109,30 @@ def handle_message(event):
 
     if msg_from_user == 'mulai':
         message = TemplateSendMessage(
-            alt_text='Button template',
-            template=ButtonsTemplate(
-                thumbnail_image_url='https://i.pinimg.com/564x/0d/b8/98/0db89880dfa0595585f33ddb50da89f9.jpg',
-                title='Menu Truth or dare',
-                text='Silahkan pilih',
-                actions=[
-                    URITemplateAction(
-                        label='Video tutorial games',
-                        uri='https://youtu.be/4iP4PEncYDY'
+            alt_text='ImageCarousel template',
+            template=ImageCarouselTemplate(
+                columns=[
+                    ImageCarouselColumn(
+                        image_url='https://i.pinimg.com/564x/0d/b8/98/0db89880dfa0595585f33ddb50da89f9.jpg',
+                        action=URITemplateAction(
+                            label='Video tutorial games',
+                            uri='https://youtu.be/4iP4PEncYDY'
+                        )
                     ),
-                    MessageTemplateAction(
-                        label='Mulai truth or dare',
-                        text='start'
+                    ImageCarouselColumn(
+                        image_url='https://i.pinimg.com/564x/c0/a1/12/c0a112ab16789fa102738ce42911a59d.jpg',
+                        action=MessageTemplateAction(
+                            label='Mulai truth or dare',
+                            text='start'
+                        )
                     ),
-                    PostbackTemplateAction(
-                        label='Melanjutkan dan Mengakhiri games',
-                        text='pilihan',
-                        data='action=buy&itemid=1'
+                        
+                    ImageCarouselColumn(
+                        image_url='https://i.pinimg.com/564x/7d/c8/e5/7dc8e50f47a0ac39a163abe6ecc511a6.jpg',
+                        action=MessageTemplateAction(
+                            label='Ingin berhenti/lanjut?',
+                            text='pilihan'
+                        )
                     )
                 ]
             )
@@ -142,6 +149,10 @@ def handle_message(event):
         message = ImageSendMessage(
         original_content_url='https://i.pinimg.com/564x/19/e9/c0/19e9c08e84ea5b4b713abc25f846b559.jpg',
         preview_image_url='https://i.pinimg.com/564x/19/e9/c0/19e9c08e84ea5b4b713abc25f846b559.jpg')
+        line_bot_api.reply_message(event.reply_token, message)
+    
+    if msg_from_user == 'pilihan':
+        message = TextSendMessage("Untuk keluar dari game ketik 'berhenti' dan jika ingin melanjutkan game ke pemain lain ketik 'mulai'")
         line_bot_api.reply_message(event.reply_token, message)
 
     if msg_from_user == 't':
@@ -168,10 +179,6 @@ def handle_message(event):
             package_id='11537',
             sticker_id=stiker)
         line_bot_api.reply_message(event.reply_token, sticker_message)
-
-    if msg_from_user == 'pilihan':
-        message = TextSendMessage("Ketik 'berhenti' untuk menghentikan permainan dan ketik 'lanjut' untuk melanjutkan permainan ke pemain lain")
-        line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
