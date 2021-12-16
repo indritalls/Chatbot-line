@@ -106,7 +106,7 @@ def handle_message(event):
         52002745:8}
     stiker = random.choice(list(s.keys()))
 
-    if msg_from_user == 'mulai' or 'lanjut':
+    if msg_from_user == 'mulai':
         message = TemplateSendMessage(
             alt_text='Buttons template',
             template=ButtonsTemplate(
@@ -170,7 +170,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, sticker_message)
 
     if msg_from_user == 'pilihan':
-        message = TextSendMessage("Ketik 'berhenti' untuk menghentikan permainan dan ketik 'lanjut' untuk melanjutkan permainan ke pemain lain")
+        message = TextSendMessage("Ketik 'berhenti' untuk menghentikan permainan dan ketik 'mulai' untuk melanjutkan permainan ke pemain lain")
         line_bot_api.reply_message(event.reply_token, message)
 
 import os
