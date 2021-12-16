@@ -108,7 +108,7 @@ def handle_message(event):
 
     if msg_from_user == 'mulai':
         message = TemplateSendMessage(
-            alt_text='Buttons template',
+            alt_text='Button template',
             template=ButtonsTemplate(
                 thumbnail_image_url='https://i.pinimg.com/564x/0d/b8/98/0db89880dfa0595585f33ddb50da89f9.jpg',
                 title='Menu Truth or dare',
@@ -170,7 +170,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, sticker_message)
 
     if msg_from_user == 'pilihan':
-        message = TextSendMessage("Ketik 'berhenti' untuk menghentikan permainan dan ketik 'mulai' untuk melanjutkan permainan ke pemain lain")
+        message = TextSendMessage("Ketik 'berhenti' untuk menghentikan permainan dan ketik 'lanjut' untuk melanjutkan permainan ke pemain lain")
         line_bot_api.reply_message(event.reply_token, message)
 
 import os
