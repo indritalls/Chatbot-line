@@ -9,7 +9,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, FlexSendMessage, 
     TemplateSendMessage, ConfirmTemplate, PostbackTemplateAction, MessageTemplateAction,
-    ButtonsTemplate, URITemplateAction, TextSendMessage, CarouselTemplate, CarouselColumn, ImageSendMessage, StickerSendMessage
+    ButtonsTemplate, URITemplateAction, TextSendMessage, CarouselTemplate, CarouselColumn, ImageSendMessage, StickerSendMessage, MessageAction, URIAction
 )
 
 app = Flask(__name__)
@@ -111,12 +111,27 @@ def handle_message(event):
     		alt_text='Carousel template',
     		template=CarouselTemplate(
         		columns=[
+                    CarouselColumn(
+                        thumbnail_image_url='https://i.pinimg.com/564x/f6/91/0c/f6910c9d863e05f55a76de7d66cd319c.jpg',
+                        title='Video tutorial',
+                        text='Jika masih bingung bisa melihat tutorial ini',
+                        actions=[
+                            MessageAction(
+                                label='tutorial gambar',
+                                text='tutorial video'
+                            ),
+                            URIAction(
+                                label='tutorial video',
+                                uri='https://youtu.be/4iP4PEncYDY'
+                            )
+                        ]
+                    ),
             		CarouselColumn(
                 		thumbnail_image_url='https://i.pinimg.com/564x/0d/b8/98/0db89880dfa0595585f33ddb50da89f9.jpg',
                			title='truth',
                 		text='Pilihlah',
                 		actions=[
-                    	    MessageTemplateAction(
+                    	    MessageAction(
                         	    label='satu',
                         	    text= tth
                     		),
@@ -127,7 +142,7 @@ def handle_message(event):
                 		title='dare',
                 		text='pilihlah',
                 		actions=[
-                    	    MessageTemplateAction(
+                    	    MessageAction(
                         	    label='dua',
                         	    text=dare
                     		),
@@ -138,7 +153,7 @@ def handle_message(event):
                 		title='bisa menjawab?',
                 		text='pilihlah',
                 		actions=[
-                    	    MessageTemplateAction(
+                    	    MessageAction(
                         	    label='klik di sini',
                         	    text='coba ceritain jika kamu memilih truth atau peragarakan langsung/videokan jika kamu memilih dare'
                     		),
@@ -149,7 +164,7 @@ def handle_message(event):
                			title='Hukuman',
                 		text='Pilihlah ini jika kalian tidak bisa menjawab',
                 		actions=[
-                    	    MessageTemplateAction(
+                    	    MessageAction(
                         	    label='klik',
                         	    text= 'hukuman'
                     		),
@@ -160,7 +175,7 @@ def handle_message(event):
                			title='Ingin Lanjut?',
                 		text='hai',
                 		actions=[
-                    	    MessageTemplateAction(
+                    	    MessageAction(
                         	    label='klik',
                         	    text= 'Ketik "berhenti" untuk menghentikan permainan dan ketik "mulai" untuk melanjutkan permainan'
                     		),
