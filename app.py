@@ -109,7 +109,7 @@ def handle_message(event):
 
     if msg_from_user == 'mulai':
         message = TemplateSendMessage(
-            alt_text='ImageCarousel template',
+            alt_text='Image Carousel template',
             template=ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
