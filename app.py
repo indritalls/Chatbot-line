@@ -116,7 +116,7 @@ def handle_message(event):
                         title='Video tutorial',
                         text='Jika masih bingung bisa melihat tutorial ini',
                         actions=[
-                            MessageAction(
+                            MessageTemplateAction(
                                 label='tutorial gambar',
                                 text='tutorial video'
                             ),
@@ -131,7 +131,7 @@ def handle_message(event):
                			title='truth',
                 		text='Pilihlah',
                 		actions=[
-                    	    MessageAction(
+                    	    MessageTemplateAction(
                         	    label='satu',
                         	    text= tth
                     		),
@@ -142,7 +142,7 @@ def handle_message(event):
                 		title='dare',
                 		text='pilihlah',
                 		actions=[
-                    	    MessageAction(
+                    	    MessageTemplateAction(
                         	    label='dua',
                         	    text=dare
                     		),
@@ -153,7 +153,7 @@ def handle_message(event):
                 		title='bisa menjawab?',
                 		text='pilihlah',
                 		actions=[
-                    	    MessageAction(
+                    	    MessageTemplateAction(
                         	    label='klik di sini',
                         	    text='coba ceritain jika kamu memilih truth atau peragarakan langsung/videokan jika kamu memilih dare'
                     		),
@@ -164,7 +164,7 @@ def handle_message(event):
                			title='Hukuman',
                 		text='Pilihlah ini jika kalian tidak bisa menjawab',
                 		actions=[
-                    	    MessageAction(
+                    	    MessageTemplateAction(
                         	    label='klik',
                         	    text= 'hukuman'
                     		),
@@ -175,7 +175,7 @@ def handle_message(event):
                			title='Ingin Lanjut?',
                 		text='hai',
                 		actions=[
-                    	    MessageAction(
+                    	    MessageTemplateAction(
                         	    label='klik',
                         	    text= 'Ketik "berhenti" untuk menghentikan permainan dan ketik "mulai" untuk melanjutkan permainan'
                     		),
