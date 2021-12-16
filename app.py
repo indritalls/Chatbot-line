@@ -109,34 +109,22 @@ def handle_message(event):
 
     if msg_from_user == 'mulai':
         message = TemplateSendMessage(
-            alt_text='Image Carousel template',
-            template=ImageCarouselTemplate(
-                columns=[
-                    ImageCarouselColumn(
-                        image_url='https://i.pinimg.com/564x/0d/b8/98/0db89880dfa0595585f33ddb50da89f9.jpg',
-                        action=URITemplateAction(
-                            label='Video tutorial games',
-                            uri='https://youtu.be/4iP4PEncYDY'
-                        )
+            alt_text='Confirm template',
+            template=ConfirmTemplate(
+                text='Mau pilih apa',
+                actions=[
+                    PostbackTemplateAction(
+                        label='Truth',
+                        text='t',
+                        data='action=buy&itemid=1'
                     ),
-                    ImageCarouselColumn(
-                        image_url='https://i.pinimg.com/564x/c0/a1/12/c0a112ab16789fa102738ce42911a59d.jpg',
-                        action=MessageTemplateAction(
-                            label='Mulai truth or dare',
-                            text='start'
-                        )
-                    ),
-                        
-                    ImageCarouselColumn(
-                        image_url='https://i.pinimg.com/564x/7d/c8/e5/7dc8e50f47a0ac39a163abe6ecc511a6.jpg',
-                        action=MessageTemplateAction(
-                            label='Ingin berhenti/lanjut?',
-                            text='pilihan'
-                        )
+                    MessageTemplateAction(
+                        label='Dare',
+                        text='d'
                     )
                 ]
             )
-        )
+        )   
         line_bot_api.reply_message(event.reply_token, message)
     
     if msg_from_user == 'start':
