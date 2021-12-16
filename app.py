@@ -113,30 +113,30 @@ def handle_message(event):
         		columns=[
             		CarouselColumn(
                 		thumbnail_image_url='https://i.pinimg.com/564x/0d/b8/98/0db89880dfa0595585f33ddb50da89f9.jpg',
-               			title='Games truth',
-                		text='',
+               			title='truth',
+                		text='Pilihlah',
                 		actions=[
                     	    MessageTemplateAction(
-                        	    label='truth',
+                        	    label='satu',
                         	    text= tth
                     		),
                 		]
             		),
             		CarouselColumn(
                 		thumbnail_image_url='https://i.pinimg.com/564x/c0/a1/12/c0a112ab16789fa102738ce42911a59d.jpg',
-                		title='Games dare',
-                		text='',
+                		title='dare',
+                		text='pilihlah',
                 		actions=[
                     	    MessageTemplateAction(
-                        	    label='dare',
+                        	    label='dua',
                         	    text=dare
                     		),
                 		]
             		),
                     CarouselColumn(
                 		thumbnail_image_url='https://i.pinimg.com/564x/7d/c8/e5/7dc8e50f47a0ac39a163abe6ecc511a6.jpg',
-                		title='bisa menjawab',
-                		text='klik tombol dibawah jika bisa menjawab',
+                		title='bisa menjawab?',
+                		text='pilihlah',
                 		actions=[
                     	    MessageTemplateAction(
                         	    label='klik di sini',
@@ -147,7 +147,7 @@ def handle_message(event):
                     CarouselColumn(
                 		thumbnail_image_url='https://i.pinimg.com/564x/a9/f0/40/a9f04016535daa98f06593117fb06e20.jpg',
                			title='Hukuman',
-                		text='Klik tombol dibawah jika tidak bisa menjawab',
+                		text='Pilihlah ini jika kalian tidak bisa menjawab',
                 		actions=[
                     	    MessageTemplateAction(
                         	    label='klik',
@@ -157,11 +157,11 @@ def handle_message(event):
             		),
                     CarouselColumn(
                 		thumbnail_image_url='https://i.pinimg.com/564x/d4/3e/11/d43e11239ccdabad5e75277d2d489882.jpg',
-               			title='Ingin Lanjut atau berhenti?',
-                		text='',
+               			title='Ingin Lanjut?',
+                		text='hai',
                 		actions=[
                     	    MessageTemplateAction(
-                        	    label='klik disini',
+                        	    label='klik',
                         	    text= 'Ketik "berhenti" untuk menghentikan permainan dan ketik "mulai" untuk melanjutkan permainan'
                     		),
                 		]
@@ -178,7 +178,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, image_message)
     
-    if msg_from_user == 'berhenti':
+    if msg_from_user == 'selesai':
         sticker_message = StickerSendMessage(
             package_id='11537',
             sticker_id=stiker)
