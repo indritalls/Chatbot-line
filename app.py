@@ -124,7 +124,7 @@ def handle_message(event):
                     ),
                     PostbackTemplateAction(
                         label='Melanjutkan dan Mengakhiri games',
-                        text='Ketik "berhenti" untuk menghentikan permainan dan ketik "lanjut" untuk melanjutkan permainan ke pemain lain',
+                        text='pilihan',
                         data='action=buy&itemid=1'
                     )
                 ]
@@ -168,6 +168,10 @@ def handle_message(event):
             package_id='11537',
             sticker_id=stiker)
         line_bot_api.reply_message(event.reply_token, sticker_message)
+
+    if msg_from_user == 'pilihan':
+        message = TextSendMessage("Ketik 'berhenti' untuk menghentikan permainan dan ketik 'lanjut' untuk melanjutkan permainan ke pemain lain")
+        line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
