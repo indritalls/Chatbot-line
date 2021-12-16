@@ -111,12 +111,11 @@ def handle_message(event):
         message = TemplateSendMessage(
             alt_text='Confirm template',
             template=ConfirmTemplate(
-                text='Mau pilih apa',
+                text='Mau pilih apa?',
                 actions=[
-                    PostbackTemplateAction(
+                    MessageTemplateAction(
                         label='Truth',
                         text='t',
-                        data='action=buy&itemid=1'
                     ),
                     MessageTemplateAction(
                         label='Dare',
